@@ -11,6 +11,9 @@
   --hero-background-color: rgba(46, 47, 66, 0.7);
   --title-white-color: #ffffff;
   --section-background-color: #e5e5e5;
+
+  --time: 2500ms;
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 /*  main-text-color: --text-color: #434455;
     headline-color: --dark-color: #2e2f42;
@@ -41,7 +44,7 @@ img {
   height: auto;
 }
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: 0.02em;
@@ -97,7 +100,7 @@ body {
   padding-bottom: 24px;
   margin-right: 76px;
 
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 800;
   font-size: 18px;
   line-height: 1.33;
@@ -128,12 +131,29 @@ body {
   font-weight: 500;
 
   color: var(--dark-color);
+  transition: color var(--time) var(--timing-function);
 }
 
 .header-list-link:hover,
 .header-list-link:focus,
 .header-list-link.current {
   color: var(--active-color);
+}
+.current {
+  position: relative;
+}
+.current::after {
+  content: '';
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: block;
+
+  height: 4px;
+  width: 100%;
+  background: var(--active-color);
+  border-radius: 2px;
 }
 
 /* ------------- CONTACTS ------------- */
@@ -152,6 +172,8 @@ body {
   font-style: normal;
 
   color: inherit;
+
+  transition: color var(--time) var(--timing-function);
 }
 
 .header-contacts-item:hover,
@@ -209,6 +231,8 @@ body {
   border-radius: 4px;
   border: none;
   cursor: pointer;
+
+  transition: background-color var(--time) var(--timing-function);
 }
 
 .hero-btn:hover,
@@ -337,6 +361,8 @@ body {
   justify-content: center;
   align-items: center;
   background-color: var(--brand-color);
+
+  transition: background-color var(--time) var(--timing-function);
 }
 
 .team-soc-link:is(:hover, :focus) {
@@ -375,6 +401,9 @@ body {
   border-radius: 4px;
 
   color: var(--subtle-text-color);
+
+  transition: color var(--time) var(--timing-function),
+    border-color var(--time) var(--timing-function);
 }
 
 .customers-link:is(:hover, :focus) {
@@ -404,7 +433,7 @@ body {
 .footer-logo {
   display: block;
   margin-bottom: 16px;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 800;
   font-size: 18px;
   line-height: 1.33;
@@ -452,11 +481,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
+
+  transition: background-color var(--time) var(--timing-function);
 }
 
 .footer-soc-link:is(:hover, :focus) {
-  background: var(--success-color);
+  background-color: var(--success-color);
 }
 
 .footer-soc-icon {
@@ -494,6 +525,11 @@ body {
   background-color: var(--light-color);
 
   cursor: pointer;
+
+  transition: box-shadow var(--time) var(--timing-function),
+    border-color var(--time) var(--timing-function),
+    color var(--time) var(--timing-function),
+    background-color var(--time) var(--timing-function);
 }
 
 .filter-btn:hover,
@@ -502,7 +538,6 @@ body {
     0px 2px 2px rgba(0, 0, 0, 0.12);
   border: 1px solid transparent;
 
-  border-radius: 4px;
   color: var(--title-white-color);
   background-color: var(--active-color);
 }
@@ -516,10 +551,36 @@ body {
 .filter-list > li {
   width: calc((100% - 48px) / 3);
 }
+.filter-cover-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.filter-cover-text {
+  position: absolute;
+  top: 0;
+
+  height: 100%;
+  padding: 40px 32px;
+
+  color: var(--light-color);
+  background-color: var(--brand-color);
+
+  transform: translateY(100%);
+
+  transition: transform var(--time) var(--timing-function);
+
+  overflow: auto;
+}
+
+.filter-list > li:is(:hover, :focus) .filter-cover-text {
+  transform: translateY(0);
+}
 
 .filter-link {
   display: block;
   color: var(--text-color);
+
+  transition: box-shadow var(--time) var(--timing-function);
 }
 
 .filter-link:is(:hover, :focus) {
@@ -534,4 +595,68 @@ body {
   border-left: 1px solid var(--accent-color);
 
   background-color: var(--title-white-color);
+}
+
+/* ------------- MODAL ------------- */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  background: var(--modal-overlay-color);
+
+  opacity: 1;
+
+  transition: opacity var(--time) var(--timing-function);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform var(--time) var(--timing-function);
+
+  width: 408px;
+  min-height: 576px;
+
+  padding: 24px;
+
+  background: #fcfcfc;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+.modal-close {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+
+  background: var(--accent-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: auto;
+
+  cursor: pointer;
+}
+
+.modal-close-icon {
+  fill: #000000;
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
