@@ -12,7 +12,7 @@
   --title-white-color: #ffffff;
   --section-background-color: #e5e5e5;
 
-  --time: 2500ms;
+  --time: 250ms;
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 /*  main-text-color: --text-color: #434455;
@@ -612,13 +612,17 @@ body {
   transition: opacity var(--time) var(--timing-function);
 }
 
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scaleY(0);
+}
+
 .modal {
   position: absolute;
   top: 50%;
   left: 50%;
 
-  transform: translate(-50%, -50%) scale(1);
-  transition: transform var(--time) var(--timing-function);
+  transform: translate(-50%, -50%) scaleY(1);
+  transition: transform 500ms var(--timing-function) 250ms;
 
   width: 408px;
   min-height: 576px;
@@ -631,9 +635,6 @@ body {
   border-radius: 4px;
 }
 
-.backdrop.is-hidden .modal {
-  transform: translate(-50%, -50%) scale(1.2);
-}
 .modal-close {
   width: 24px;
   height: 24px;
